@@ -1,7 +1,7 @@
 package com.example.demo.flightSearch;
+
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class FlightConfig {
-
+public class AirportConfig {
 }

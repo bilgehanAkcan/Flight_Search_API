@@ -1,45 +1,41 @@
 package com.example.demo.flightSearch;
 import jakarta.persistence.*;
-
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table
 public class Flight {
     @Id
-    @SequenceGenerator(
-            name = "flight_sequence",
-            sequenceName = "flight_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "flight_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String departureAirport;
-    private String arrivalAirport;
-    private LocalDate departureDate;
-    private LocalDate arrivalDate;
+    @ManyToOne
+    @JoinColumn(name = "departure_airport_id")
+    private Airport departureAirport;
+
+    @ManyToOne
+    @JoinColumn(name = "arrival_airport_id")
+    private Airport arrivalAirport;
+    private LocalDateTime departureDateTime;
+    private LocalDateTime arrivalDateTime;
     private Float price;
 
     public Flight() {
     }
 
-    public Flight(Long id, String departureAirport, String arrivalAirport, LocalDate departureDate, LocalDate arrivalDate, Float price) {
+    public Flight(Long id, Airport departureAirport, Airport arrivalAirport, LocalDateTime departureDateTime, LocalDateTime arrivalDateTime, Float price) {
         this.id = id;
         this.departureAirport = departureAirport;
         this.arrivalAirport = arrivalAirport;
-        this.departureDate = departureDate;
-        this.arrivalDate = arrivalDate;
+        this.departureDateTime = departureDateTime;
+        this.arrivalDateTime = arrivalDateTime;
         this.price = price;
     }
 
-    public Flight(String departureAirport, String arrivalAirport, LocalDate departureDate, LocalDate arrivalDate, Float price) {
+    public Flight(Airport departureAirport, Airport arrivalAirport, LocalDateTime departureDateTime, LocalDateTime arrivalDateTime, Float price) {
         this.departureAirport = departureAirport;
         this.arrivalAirport = arrivalAirport;
-        this.departureDate = departureDate;
-        this.arrivalDate = arrivalDate;
+        this.departureDateTime = departureDateTime;
+        this.arrivalDateTime = arrivalDateTime;
         this.price = price;
     }
 
@@ -51,36 +47,36 @@ public class Flight {
         this.id = id;
     }
 
-    public String getDepartureAirport() {
+    public Airport getDepartureAirport() {
         return departureAirport;
     }
 
-    public void setDepartureAirport(String departureAirport) {
+    public void setDepartureAirport(Airport departureAirport) {
         this.departureAirport = departureAirport;
     }
 
-    public String getArrivalAirport() {
+    public Airport getArrivalAirport() {
         return arrivalAirport;
     }
 
-    public void setArrivalAirport(String arrivalAirport) {
+    public void setArrivalAirport(Airport arrivalAirport) {
         this.arrivalAirport = arrivalAirport;
     }
 
-    public LocalDate getDepartureDate() {
-        return departureDate;
+    public LocalDateTime getDepartureDateTime() {
+        return departureDateTime;
     }
 
-    public void setDepartureDate(LocalDate departureDate) {
-        this.departureDate = departureDate;
+    public void setDepartureDateTime(LocalDateTime departureDate) {
+        this.departureDateTime = departureDate;
     }
 
-    public LocalDate getArrivalDate() {
-        return arrivalDate;
+    public LocalDateTime getArrivalDateTime() {
+        return arrivalDateTime;
     }
 
-    public void setArrivalDate(LocalDate arrivalDate) {
-        this.arrivalDate = arrivalDate;
+    public void setArrivalDateTime(LocalDateTime arrivalDate) {
+        this.arrivalDateTime = arrivalDate;
     }
 
     public Float getPrice() {
@@ -97,8 +93,8 @@ public class Flight {
                 "id=" + id +
                 ", departureAirport='" + departureAirport + '\'' +
                 ", arrivalAirport='" + arrivalAirport + '\'' +
-                ", departureDate=" + departureDate +
-                ", arrivalDate=" + arrivalDate +
+                ", departureDate=" + departureDateTime +
+                ", arrivalDate=" + arrivalDateTime +
                 ", price=" + price +
                 '}';
     }
