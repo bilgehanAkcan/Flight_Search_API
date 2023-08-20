@@ -39,4 +39,10 @@ public class AirportService {
             airport.setCity(city);
         }
     }
+
+    public void addAirport(String city) {
+        Airport airport = new Airport(city);
+        airportRepository.save(airport);
+        
+    }
 }

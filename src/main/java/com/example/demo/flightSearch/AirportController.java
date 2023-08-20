@@ -34,4 +34,9 @@ public class AirportController {
         airportService.updateAirport(airportId, city);
     }
 
+    @PostMapping
+    public void addAirport(@RequestBody String city) {
+        airportService.addAirport(city);
+    }
+
 }
