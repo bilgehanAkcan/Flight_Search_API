@@ -1,5 +1,6 @@
 package com.example.demo.flightSearch;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -32,8 +33,8 @@ public class FlightController {
     public List<Flight> searchFlights(
             @RequestParam Long departureAirportId,
             @RequestParam Long arrivalAirportId,
-            @RequestParam LocalDateTime departureDateTime,
-            @RequestParam(required = false) LocalDateTime arrivalDateTime
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime departureDateTime,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime arrivalDateTime
     ) {
         Airport departureAirport = null;
         if (departureAirportId != null) {
@@ -60,8 +61,8 @@ public class FlightController {
     public void updateFlight(
             @PathVariable Long flightId,
             @RequestParam(required = false) Float price,
-            @RequestParam(required = false) LocalDateTime arrivalDateTime,
-            @RequestParam(required = false) LocalDateTime departureDateTime,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime arrivalDateTime,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime departureDateTime,
             @RequestParam(required = false) Long arrivalAirportId,
             @RequestParam(required = false) Long departureAirportId) {
         flightService.updateFlight(flightId, departureAirportId, arrivalAirportId, departureDateTime, arrivalDateTime, price);
